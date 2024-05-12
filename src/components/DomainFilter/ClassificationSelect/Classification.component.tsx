@@ -1,3 +1,4 @@
+import DomainUtils from "../../../utils/DomainUtils";
 
 interface Props {
   domains: string[];
@@ -5,13 +6,13 @@ interface Props {
 
 const ClassificationSelect = (props: Props) => {
   const classifications = props.domains
-    .map((domain) => domain.substring(3,5))
-    .filter((classification, ignored, arr) => arr.indexOf(classification) <= 0);
+    .map(DomainUtils.findClassification)
+    .filter((classification, index, arr) => arr.indexOf(classification) === index);
 
   return (
     <select name="classifications" multiple>
-      {classifications.map((classification) => (
-        <option value={classification} key={classification}>
+      {classifications.map((classification, index) => (
+        <option value={classification} key={index}>
           {classification}
         </option>
       ))}

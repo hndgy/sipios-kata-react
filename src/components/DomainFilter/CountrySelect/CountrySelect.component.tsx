@@ -1,4 +1,5 @@
 import { useState } from "react";
+import DomainUtils from "../../../utils/DomainUtils";
 
 interface Props {
   domains: string[];
@@ -6,13 +7,13 @@ interface Props {
 
 const CountrySelect = (props: Props) => {
   const countries = props.domains
-    .map((domain) => domain.substring(0, 2))
-    .filter((country, ignored, arr) => arr.indexOf(country) <= 0);
+    .map((domain) => DomainUtils.findCountry(domain))
+    .filter((country, index, arr) => arr.indexOf(country) === index);
 
   return (
     <select name="countries" multiple>
-      {countries.map((country) => (
-        <option value={country} key={country}>
+      {countries.map((country, index) => (
+        <option value={country} key={index}>
           {country}
         </option>
       ))}
