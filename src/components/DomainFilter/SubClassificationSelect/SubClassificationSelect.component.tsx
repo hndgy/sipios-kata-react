@@ -1,14 +1,15 @@
 import { useState } from "react";
 import DomainUtils from "../../../utils/DomainUtils";
+import { ArrayUtils } from "../../../utils/ArrayUtils";
 
 interface Props {
   domains: string[];
 }
 
 const SubClassificationSelect = (props: Props) => {
-  const subClassifications = props.domains
-    .map((domain) => DomainUtils.findSubClassification(domain))
-    .filter((subClassification, index, arr) => arr.indexOf(subClassification) === index);
+  const subClassifications = ArrayUtils.distinct(
+    props.domains.map((domain) => DomainUtils.findSubClassification(domain))
+  );
 
   return (
     <select name="subClassifications" multiple>

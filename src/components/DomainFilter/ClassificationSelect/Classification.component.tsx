@@ -1,3 +1,4 @@
+import { ArrayUtils } from "../../../utils/ArrayUtils";
 import DomainUtils from "../../../utils/DomainUtils";
 
 interface Props {
@@ -5,9 +6,9 @@ interface Props {
 }
 
 const ClassificationSelect = (props: Props) => {
-  const classifications = props.domains
-    .map(DomainUtils.findClassification)
-    .filter((classification, index, arr) => arr.indexOf(classification) === index);
+  const classifications = ArrayUtils.distinct(
+    props.domains.map(DomainUtils.findClassification)
+  );
 
   return (
     <select name="classifications" multiple>
