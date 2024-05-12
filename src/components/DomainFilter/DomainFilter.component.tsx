@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { threadId } from 'worker_threads';
-import CountryFilter from './CountryFilter/CountryFilter.component';
+import CountryFilter from './CountrySelect/CountrySelect.component';
+import ClassificationSelect from './ClassificationSelect/Classification.component';
+import SubClassificationSelect from './SubClassificationSelect/SubClassificationSelect.component';
 
 interface State {
   countries: string[],
@@ -14,53 +15,11 @@ interface Props {
 
 const DomainFilter = (props: Props) => {
   const domains = props?.domains ?? [];
-  const countries: string[] = [];
-  const classifications: string[] = [];
-  const subClassifications: string[] = [];
-
-  let [state, setState] = useState<State>({
-    countries: [],
-    classifications: [],
-    subClassifications: []
-  });
-
-
-  useEffect(() => {
-    for(let i = 0; i < domains.length; i++) {
-      if (countries.indexOf(domains[i].substring(0,2)) <= 0) {
-        countries.push(domains[i].substring(0,2))
-      }
-      classifications.push(domains[i].substring(3,5));
-      let flag = false;
-      for(let j = 0; j < subClassifications.length; j++) {
-        if (subClassifications[j] == domains[i].substring(6)) {
-          flag = true
-          break;
-        }
-      }
-      if (!flag) {
-        subClassifications.push(domains[i].substring(6));
-      }
-    };
-    setState({
-      countries: countries,
-      classifications: classifications.filter((e, i, l) => l.indexOf(e) === i),
-      subClassifications: subClassifications
-    });
-  }, [domains]);
 
   return (<>
     <CountryFilter domains={domains}/>
-    <select name="classifications" multiple>
-      {state.classifications.map(classification => (
-        <option value={classification} key={classification}>{classification}</option>
-      ))}
-    </select>
-    <select name="subClassifications" multiple>
-      {state.subClassifications.map(subClassification => (
-        <option value={subClassification} key={subClassification}>{subClassification}</option>
-      ))}
-    </select>
+    <ClassificationSelect domains={domains}/>
+    <SubClassificationSelect domains={domains}/>
   </>);
 }
 
