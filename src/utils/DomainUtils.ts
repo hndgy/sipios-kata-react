@@ -2,15 +2,15 @@ const DOMAIN_PATTERN = /(?<country>(\w)+)_(?<classification>(\w)+)-(?<subClassif
 
 const DomainUtils =  {
     findCountry(domain : string) {
-        return DOMAIN_PATTERN.exec(domain)?.groups?.country ?? ""
+        return DOMAIN_PATTERN.exec(domain)?.groups?.country ?? domain
     },
 
     findClassification(domain : string) {
-        return DOMAIN_PATTERN.exec(domain)?.groups?.classification ?? ""
+        return DOMAIN_PATTERN.exec(domain)?.groups?.classification ?? domain
     },
 
     findSubClassification(domain : string) {
-        return DOMAIN_PATTERN.exec(domain)?.groups?.subClassification ?? ""
+        return DOMAIN_PATTERN.exec(domain)?.groups?.subClassification ?? domain
     },
 }
 
