@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { threadId } from 'worker_threads';
+import CountryFilter from './CountryFilter/CountryFilter.component';
 
 interface State {
   countries: string[],
@@ -16,7 +17,6 @@ const DomainFilter = (props: Props) => {
   const countries: string[] = [];
   const classifications: string[] = [];
   const subClassifications: string[] = [];
-  const s: any = {};
 
   let [state, setState] = useState<State>({
     countries: [],
@@ -50,11 +50,7 @@ const DomainFilter = (props: Props) => {
   }, [domains]);
 
   return (<>
-    <select name="countries" multiple>
-      {state.countries.map(country => (
-        <option value={country} key={country}>{country}</option>
-      ))}
-    </select>
+    <CountryFilter domains={domains}/>
     <select name="classifications" multiple>
       {state.classifications.map(classification => (
         <option value={classification} key={classification}>{classification}</option>
